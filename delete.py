@@ -1,5 +1,6 @@
 from tkinter import *
 from  tkinter import  ttk
+from PIL import ImageTk, Image
 
 
 #importing connection
@@ -47,6 +48,10 @@ def Registrationform():
     reg_screen.title("Registration Form")
     #setting height and width of screen
     reg_screen.geometry("450x400")
+
+    reg_screen.resizable(0, 0)
+
+    image = PhotoImage('images')
     #declaring variable
     global  message;
     global firstname
@@ -80,7 +85,11 @@ def Registrationform():
     Label(reg_screen, text="",textvariable=message).place(x=90,y=140)
 
     #Label for displaying login status[success/failed]
-    Button(reg_screen, text="Delete", width=10, height=1, bg="red",command=delete).place(x=90,y=160)
+    img = ImageTk.PhotoImage(Image.open(r"images\del.jpg"))
+    Button(reg_screen,image=img, width=100, height=50,borderwidth=0,command=delete).place(x=300,y=160)
+
+    img1 = ImageTk.PhotoImage(Image.open(r"images\back.jpg"))
+    Button(reg_screen,image=img1, width=100, height=50,borderwidth=0,command="").place(x=10,y=160)
 
     reg_screen.mainloop()
 #calling function Registrationform

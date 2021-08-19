@@ -1,5 +1,6 @@
 from tkinter import *
 from  tkinter import  ttk
+from PIL import ImageTk, Image
 
 
 #importing connection
@@ -8,16 +9,11 @@ import  mariadb as mc
 conn = mc.connect(
    user='root', password='don', host='localhost', database='classWork')
 
-#open update page
-def update():
+def back():
     reg_screen.destroy()
-    import update
-    update.Update_details()
-#open delete page
-def delete():
-    reg_screen.destroy()
-    import delete
-    delete.Registrationform()
+    import main
+    main.Registrationform()
+
 #function to clear entries
 def Clear():
     firstname.set('')
@@ -76,6 +72,9 @@ def Registrationform():
     reg_screen.title("Registration Form")
     #setting height and width of screen
     reg_screen.geometry("450x500")
+    reg_screen.resizable(0, 0)
+
+    image = PhotoImage('images')
     #declaring variable
     global  message;
     global firstname
@@ -95,52 +94,57 @@ def Registrationform():
     message=StringVar()
     #Creating layout of Registration form
     Label(reg_screen,width="300", text="Please enter details below", bg="orange",fg="white").pack()
+
+    #image labels
+    img = ImageTk.PhotoImage(Image.open(r"images\f1.png"))
+    label1 = Label(reg_screen,image=img, width=100,height=100)
+    label1.place(x=150,y=30)
+
+    img1 = ImageTk.PhotoImage(Image.open(r"images\back.jpg"))
+    Button(reg_screen,width=50, height=30,bg='#ffffff', image=img1, borderwidth=0, command=back).place(x=0,y=25)
+
     #name Label
-    Label(reg_screen, text="firstname * ").place(x=20,y=40)
+    Label(reg_screen, text="firstname * ").place(x=20,y=140)
     #name textbox
-    Entry(reg_screen, textvariable=firstname, width=40,border=2).place(x=90,y=42)
+    Entry(reg_screen, textvariable=firstname, width=40,border=2).place(x=90,y=142)
     #contact Label
-    Label(reg_screen, text="secondname* ").place(x=18,y=80)
+    Label(reg_screen, text="secondname* ").place(x=18,y=180)
     #contact textbox
-    Entry(reg_screen, textvariable=secondname, width=40,border=2).place(x=94,y=82)
+    Entry(reg_screen, textvariable=secondname, width=40,border=2).place(x=94,y=182)
 
     # email Label
-    Label(reg_screen, text="sirname * ").place(x=20, y=120)
+    Label(reg_screen, text="sirname * ").place(x=20, y=220)
     # email textbox
-    Entry(reg_screen, textvariable=sirname, width=40,border=2).place(x=90, y=122)
+    Entry(reg_screen, textvariable=sirname, width=40,border=2).place(x=90, y=222)
 
     # gender Label
-    Label(reg_screen, text="Gender * ").place(x=20, y=160)
+    Label(reg_screen, text="Gender * ").place(x=20, y=260)
     # gender radiobutton
-    Radiobutton(reg_screen,text="Male",variable=gender,value=1).place(x=90,y=162)
-    Radiobutton(reg_screen, text="Female", variable=gender, value=2).place(x=150, y=162)
+    Radiobutton(reg_screen,text="Male",variable=gender,value=1).place(x=90,y=262)
+    Radiobutton(reg_screen, text="Female", variable=gender, value=2).place(x=150, y=262)
     
     #courseTitle
-    Label(reg_screen, text="courseTitle * ").place(x=20, y=200)
+    Label(reg_screen, text="courseTitle * ").place(x=20, y=300)
     # coursetitle field
-    Entry(reg_screen, textvariable=coursetitle, width=40,border=2).place(x=90, y=202)
+    Entry(reg_screen, textvariable=coursetitle, width=40,border=2).place(x=90, y=302)
 
     #coursecode
-    Label(reg_screen, text="coursecode * ").place(x=20, y=240)
+    Label(reg_screen, text="coursecode * ").place(x=20, y=340)
     # coursecode field
-    Entry(reg_screen, textvariable=coursecode, width=40,border=2).place(x=92, y=242)
+    Entry(reg_screen, textvariable=coursecode, width=40,border=2).place(x=92, y=342)
 
     #regnumber
-    Label(reg_screen, text="regnumber * ").place(x=20, y=280)
+    Label(reg_screen, text="regnumber * ").place(x=20, y=380)
     # regnumber field
-    Entry(reg_screen, textvariable=regnumber, width=40,border=2).place(x=92, y=280)
+    Entry(reg_screen, textvariable=regnumber, width=40,border=2).place(x=92, y=380)
 
  
 
     #Label for displaying login status[success/failed]
-    Label(reg_screen, text="",textvariable=message).place(x=95,y=294)
+    Label(reg_screen, text="",font='Helvetica 12 bold',textvariable=message).place(x=95,y=420)
     #Login button
-    Button(reg_screen, text="Add", width=10, height=1,fg="white", bg="darkgreen",command=register).place(x=0,y=350)
-
-    Button(reg_screen, text="Update", width=10, height=1, bg="skyblue",command=update).place(x=100,y=350)
-
-    Button(reg_screen, text="Delete", width=10, height=1, bg="pink",command=delete).place(x=200,y=350)
-    Button(reg_screen, text="Xcancel", width=10, height=1,fg="white", bg="red",command=Clear).place(x=300,y=350)
+    Button(reg_screen, text="Add",font='Helvetica 12 bold', width=10, height=1,fg="white", bg="darkgreen",command=register).place(x=300,y=450)
+    Button(reg_screen, text="Xcancel",font='Helvetica 12 bold', width=10, height=1,fg="white", bg="red",command=Clear).place(x=50,y=450)
 
 
     reg_screen.mainloop()

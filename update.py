@@ -20,37 +20,37 @@ def search():
 
     mycursor.execute(query)
     results = mycursor.fetchall()
-    print(results)
-    for result in results:
-        firstname.set(result[1])
-        secondname.set(result[2])
-        sirname.set(result[3])
-        coursetitle.set(result[5])
-        coursecode.set(result[6])
-        regnumber.set(result[7])
+    if results==None:
+        message.set("User not found!!!")
+    else:
+        for result in results:
+            firstname.set(result[1])
+            secondname.set(result[2])
+            sirname.set(result[3])
+            coursetitle.set(result[5])
+            coursecode.set(result[6])
+            regnumber.set(result[7])
 #defining register function
 def update_fn():
     ##getting form data
-    name1=firstname.get()
-    name2=secondname.get()
-    name3=sirname.get()
-    coursetitle1=coursetitle.get()
-    coursecode1=coursecode.get()
-    regno= regnumber.get()
+    first_name=firstname.get()
+    sec_name=secondname.get()
+    sir_name=sirname.get()
+    course_title1=coursetitle.get()
+    course_code1=coursecode.get()
+    regno = regnumber.get()
     #applying empty validation
-    if name1=='' or name2==''or name3=='' or coursetitle1=='' or coursecode1==''or regno=='':
+    if first_name=='' or sec_name==''or sir_name=='' or course_title1=='' or course_code1==''or regno=='':
         message.set("fill the empty field!!!")
     else:
        # Creating a cursor object using the cursor() method
        cursor = conn.cursor()
        # Preparing SQL query to INSERT a record into the database.
-       insert_stmt ="UPDATE student SET(firstName,secondName,sirName, course_title,  course_code, regNumber WHERE  firstName='%s'"%firstname.get()
-       "VALUES (%s, %s, %s, %s, %s, %s)"
-       value = (name1, name2, name3, coursetitle1, coursecode1,regno)
+       insert_stmt ="UPDATE student SET firstName ='%s',secondName ='%s',sirName ='%s',course_title ='%s',course_code ='%s' WHERE  regNumber='%s' "%(first_name, sec_name, sir_name, course_title1, course_code1, regno)
   
        try:
            #executing the sql command
-           cursor.execute(insert_stmt,value)
+           cursor.execute(insert_stmt,)
            #commit changes in database
            conn.commit()
        except:
@@ -126,7 +126,7 @@ def Update_details():
     #regnumber
     Label(reg_screen, text="regnumber * ").place(x=20, y=270)
     # regnumber field
-    Entry(reg_screen, textvariable=regnumber, width=40,border=2).place(x=92, y=272)
+    Entry(reg_screen, textvariable=regnumber, width=40,border=2,state='disabled').place(x=92, y=272)
 
  
 
