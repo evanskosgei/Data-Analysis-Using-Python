@@ -14,7 +14,7 @@ except mc.Error as e:
     sys.exit(1)
 
 mycursor = mydb.cursor()
-mycursor.execute("CREATE TABLE IF NOT EXISTS REG (RID INT AUTO_INCREMENT PRIMARY KEY,\
+mycursor.execute("CREATE TABLE IF NOT EXISTS REG (ID INT AUTO_INCREMENT PRIMARY KEY,\
     NAME varchar(255) NOT NULL,\
     CONTACT varchar(255),\
     EMAIL varchar(255),\

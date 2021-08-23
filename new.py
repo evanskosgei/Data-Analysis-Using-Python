@@ -1,13 +1,14 @@
 from tkinter import *
 from  tkinter import  ttk
 from PIL import ImageTk, Image
+from db import *
 
 
 #importing connection
-import  mariadb as mc
+#import  mysql.connector as mc
 #establishing connection
-conn = mc.connect(
-   user='root', password='don', host='localhost', database='classWork')
+#conn = mc.connect(
+#   user='root', password='', host='localhost', database='classWork')
 
 def back():
     reg_screen.destroy()
@@ -39,7 +40,7 @@ def register():
         message.set("fill the empty field!!!")
     else:
        # Creating a cursor object using the cursor() method
-       cursor = conn.cursor()
+       cursor = mydb.cursor()
        # Preparing SQL query to INSERT a record into the database.
        insert_stmt = (
            "INSERT INTO student(firstName, secondName, sirName, gender, course_title, course_code, regNumber)"
@@ -53,9 +54,9 @@ def register():
            #executing the sql command
            cursor.execute(insert_stmt,data)
            #commit changes in database
-           conn.commit()
+           mydb.commit()
        except:
-           conn.rollback()
+           mydb.rollback()
        message.set("Stored successfully")
        firstname.set('')
        secondname.set('')

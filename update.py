@@ -1,21 +1,23 @@
 from tkinter import *
 from  tkinter import  ttk
+from PIL import ImageTk, Image
+from db import *
 
 
 #importing connection
-import  mariadb as mc
+#import  mysql.connector as mc
 #establishing connection
-conn = mc.connect(
-   user='root', password='don', host='localhost', database='classWork')
+#conn = mc.connect(
+#   user='root', password='', host='localhost', database='classWork')
 
 def back():
     reg_screen.destroy()
-    import new
-    new.Registrationform()
+    import main
+    main.Registrationform()
 #function to clear entries
 def search(): 
     search1 = searchitem.get()
-    mycursor = conn.cursor()
+    mycursor = mydb.cursor()
     query ="SELECT * FROM student WHERE firstName='%s'"%searchitem.get()
 
     mycursor.execute(query)
@@ -44,7 +46,7 @@ def update_fn():
         message.set("fill the empty field!!!")
     else:
        # Creating a cursor object using the cursor() method
-       cursor = conn.cursor()
+       cursor = mydb.cursor()
        # Preparing SQL query to INSERT a record into the database.
        insert_stmt ="UPDATE student SET firstName ='%s',secondName ='%s',sirName ='%s',course_title ='%s',course_code ='%s' WHERE  regNumber='%s' "%(first_name, sec_name, sir_name, course_title1, course_code1, regno)
   
@@ -52,9 +54,9 @@ def update_fn():
            #executing the sql command
            cursor.execute(insert_stmt,)
            #commit changes in database
-           conn.commit()
+           mydb.commit()
        except:
-           conn.rollback()
+           mydb.rollback()
        message.set("Stored successfully")
        firstname.set('')
        secondname.set('')
@@ -136,7 +138,8 @@ def Update_details():
     Button(reg_screen, text="Save", width=10, height=1, bg="lightgreen",command=update_fn).place(x=200,y=320)
 
     #search button
-    Button(reg_screen, text="Search", width=10, height=1, bg="lightgreen",command=search).place(x=350,y=30)
+    img1 = ImageTk.PhotoImage(Image.open(r"images\search.jpg"))
+    Button(reg_screen, width=50, height=20,image=img1,command=search).place(x=350,y=28)
 
     Button(reg_screen, text="<back", width=10, height=1, bg="skyblue",command=back).place(x=0,y=320)
 

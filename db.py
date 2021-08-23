@@ -1,11 +1,11 @@
-import mariadb as mc
+import mysql.connector as mc
 import sys
 
 try:
     mydb = mc.connect(
         host = "localhost",
         user = "root",
-        password = "don",
+        password = "",
         port = 3306,
         database = "classWork"
     )
